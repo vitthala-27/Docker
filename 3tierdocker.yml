@@ -1,0 +1,42 @@
+services:
+  mynginx:
+    image: nginx
+    ports: 
+     - 80:80
+    networks: 
+     - frontend
+    volumes:
+      - mydata:/usr/share/nginx/html
+  mydb:
+    image: mysql
+    ports:
+      - 3306
+    environment:
+        MYSQL_ROOT_PASSWORD: Pass@123
+        MYSQL_DATABASE: mydatabase
+    networks:
+      - backend
+    volumes:
+      - mysqvol:/var/lib/mysql
+  myapp:
+    image: php:8.2-fpm
+    ports: 
+      - 9000
+    networks:
+      - frontend
+      - backend
+    volumes: 
+      - myphvol:/var/www/html
+  
+networks:
+  frontend:
+  backend:
+
+volumes:
+  mydata:
+  mysqvol:
+  myphvol:
+
+
+
+
