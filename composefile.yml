@@ -1,0 +1,31 @@
+services:
+ db:
+    build:
+     context: .
+     dockerfile: Dockerfile
+    volumes:
+      - mydata:/var/lib/mysql
+    networks: 
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: Pass@123
+      MYSQL_DATABASE: fb
+    ports:
+      - 3306
+ myweb:
+   image: nginx
+   ports:
+     - 80:80
+   networks: 
+     - frontend
+   volumes:
+     - myapp:/usr/share/nginx/html
+networks:
+  frontend:
+  backend:
+volumes:
+    mydata:
+    myapp:
+
+
+
